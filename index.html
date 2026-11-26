@@ -64,7 +64,24 @@
 .btn,.slot,.lockbtn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:transform .22s cubic-bezier(.2,.8,.2,1),background .35s,border-color .35s,box-shadow .35s,opacity .3s}.btn:active:not(:disabled),.slot:active:not(:disabled),.lockbtn:active:not(:disabled){transform:scale(.98)}
 .hc-flow-enter{animation:hc-flow-in .42s cubic-bezier(.2,.75,.2,1) both}@keyframes hc-flow-in{from{opacity:.45;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.hc-flow-enter{animation:none}.practice-count button,.btn,.slot,.lockbtn{transition:none}}
-</style><style>.hc-charge-layer{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;box-shadow:0 0 10px #ffda90,0 0 28px #cda153a0,inset 0 0 9px #fff1c190;border:1px solid #fff1bb;overflow:hidden;z-index:2}.hc-charge-layer i,.hc-charge-layer b{position:absolute;inset:0;border-radius:inherit;pointer-events:none}.hc-charge-layer i{background:radial-gradient(ellipse at center,transparent 15%,#ffdfa632 65%,#fff1bf99 100%)}.hc-charge-layer b{inset:-10px;background:linear-gradient(115deg,transparent 30%,#fff4cf22 41%,#fff6d1a6 50%,#fff4cf22 59%,transparent 70%)}#hcStakes strong{display:block;color:inherit;font-weight:700;margin-bottom:3px}</style></head><body><main class="app"><div class="header"><div><div class="brand">HEAD CRACK</div><div class="ticker">$HCRAC</div></div><span class="tag" id="tag">LOBBY</span></div><div id="config"></div><div id="progress"></div><div class="panel" id="panel"></div><details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 7v14M12 7C9 4 5 3 2 4v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-3-1-7 0-10 3Z"/></svg>Game rules</summary><div id="rules" class="rulebody"></div></details><div class="foot"><span>Head Crack · V0.8.2 · Free play</span><button id="reset" class="reset">Return to lobby</button></div></main>
+</style><style>.hc-charge-layer{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;box-shadow:0 0 10px #ffda90,0 0 28px #cda153a0,inset 0 0 9px #fff1c190;border:1px solid #fff1bb;overflow:hidden;z-index:2}.hc-charge-layer i,.hc-charge-layer b{position:absolute;inset:0;border-radius:inherit;pointer-events:none}.hc-charge-layer i{background:radial-gradient(ellipse at center,transparent 15%,#ffdfa632 65%,#fff1bf99 100%)}.hc-charge-layer b{inset:-10px;background:linear-gradient(115deg,transparent 30%,#fff4cf22 41%,#fff6d1a6 50%,#fff4cf22 59%,transparent 70%)}#hcStakes strong{display:block;color:inherit;font-weight:700;margin-bottom:3px}</style><style id="hc-red-lock-refinement">
+/* Keep the label and lock icon readable during the complete fill. */
+.lockbtn{isolation:isolate;color:#f6f6f6}
+.lockfill{z-index:0;background:linear-gradient(90deg,#484848,#595959);box-shadow:inset -2px 0 0 #bdbdbd,inset -9px 0 15px -9px #e6e6e6;transition:width 1.8s cubic-bezier(.2,.75,.15,1)}
+.lockcontent{z-index:1;color:#f6f6f6;text-shadow:0 1px 2px #0008}
+.lockbtn.closing .lockcontent{color:#1d1d1d;text-shadow:none}
+.lockbtn.closing .lockfill{background:#e6e6e6;box-shadow:none;width:100%!important;transition:none}
+.lockbtn:disabled{opacity:1}
+/* Red light is optically distinct from the monochrome bloom. */
+:root{--hc-red-label:0 0 4px #e8404b99,0 0 10px #d5233866;--hc-red-bar:0 0 4px #f03b50bb,0 0 10px #e42d427f,0 0 19px #bc172b55}
+.rulevalue.red,.timer.urgent [data-label],.timer.urgent [data-seconds]{color:#ff9595!important;text-shadow:var(--hc-red-label)}
+.timer.urgent .timefill,.decision.poison .result-timer.urgent .timefill{background:linear-gradient(90deg,#b52d40,#ef5967);box-shadow:var(--hc-red-bar)}
+.decision.poison .result-timer .track{overflow:visible}
+.decision.poison .result-timer .timefill{background:linear-gradient(90deg,#b52d40,#ef5967);box-shadow:var(--hc-red-bar)}
+.decision.poison .result.red,.outcome.red:not(.hc-gold-outcome){text-shadow:var(--hc-red-label)}
+.choice.danger.selected:after{background:linear-gradient(110deg,transparent 15%,#ff49592a 48%,transparent 72%)}
+@media(prefers-reduced-motion:reduce){.lockfill{transition:none}}
+</style></head><body><main class="app"><div class="header"><div><div class="brand">HEAD CRACK</div><div class="ticker">$HCRAC</div></div><span class="tag" id="tag">LOBBY</span></div><div id="config"></div><div id="progress"></div><div class="panel" id="panel"></div><details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 7v14M12 7C9 4 5 3 2 4v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-3-1-7 0-10 3Z"/></svg>Game rules</summary><div id="rules" class="rulebody"></div></details><div class="foot"><span>Head Crack · V0.8.2 · Free play</span><button id="reset" class="reset">Return to lobby</button></div></main>
 <script>
 const $=id=>document.getElementById(id),rand=()=>1+Math.floor(Math.random()*6),pick=a=>a[Math.floor(Math.random()*a.length)],safe=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
 const patterns={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};

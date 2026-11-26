@@ -101,7 +101,7 @@ const hcPlus='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 openLobby=function(){hcStop();openMenuPage('LOBBY','<div class="eyebrow">Player setup</div><div class="heading">Join the table.</div><div class="sub">Choose how you want to play.</div><div class="menu-links" style="margin-top:22px">'+menuCard('hcCreate','Create a room','Host a private game and invite friends.',hcPlus,true)+menuCard('hcJoin','Join a room','Enter your friend’s room code.',hcUsers)+menuCard('hcPractice','Practice','Play against simulated opponents.',icon('dice'))+'</div>');$('hcCreate').onclick=()=>hcForm('create');$('hcJoin').onclick=()=>hcForm('join');$('hcPractice').onclick=practiceLobby};
 
 // Temporary name-based cosmetic test access; not paid membership or authentication.
-const hcFounderNames=new Set(['zeb','zebulun','zebulun tucker','zeb tucker','z naphtali']);
+const hcFounderNames=new Set(['z','zeb','zebulun','zebulun tucker','zeb tucker','z naphtali']);
 function hcFounderEligible(n){return hcFounderNames.has(String(n).trim().toLowerCase())}
 function hcFounderEquipped(n){return / \[F\]$/.test(String(n))&&hcFounderEligible(String(n).slice(0,-4))}
 function hcDisplayName(n){return hcFounderEquipped(n)?String(n).slice(0,-4):String(n)}

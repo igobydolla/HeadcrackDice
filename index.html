@@ -36,6 +36,13 @@
 .scan{filter:drop-shadow(0 0 3px #ffffffa6);box-shadow:0 0 6px #ffffff7c}
 .scantrack{overflow:clip;overflow-clip-margin:6px;clip-path:inset(-10px 0 -10px 0)}
 /* No changes to voting meters, regular player names, red warnings or Founder typography. */
+
+/* Header identity: persistent silver, quiet breathing and occasional specular sweep. */
+.hcBrand .brand,.hcBrand .ticker{background-image:linear-gradient(112deg,transparent 39%,#ffffff00 45%,#ffffffb0 50%,#ffffff00 55%,transparent 61%),var(--hc-silver);background-size:300% 100%,100% 100%;background-position:100% 0,0 0;background-repeat:no-repeat;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:hc-brand-breathe 7s ease-in-out infinite,hc-brand-sweep 14s linear infinite}
+.hcBrand .ticker{animation-delay:-2s,.22s}
+@keyframes hc-brand-breathe{0%,100%{filter:drop-shadow(0 0 3px #ffffff29)}50%{filter:drop-shadow(0 0 5px #ffffff4d)}}
+@keyframes hc-brand-sweep{0%,72%{background-position:100% 0,0 0}86%,100%{background-position:0% 0,0 0}}
+@media(prefers-reduced-motion:reduce){.hcBrand .brand,.hcBrand .ticker{animation:none;background-image:var(--hc-silver);background-size:100% 100%;filter:drop-shadow(0 0 3px #ffffff29)}}
 </style></head><body><main class="app"><div class="header"><div><div class="brand">HEAD CRACK</div><div class="ticker">$HCRAC</div></div><span class="tag" id="tag">LOBBY</span></div><div id="config"></div><div id="progress"></div><div class="panel" id="panel"></div><details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 7v14M12 7C9 4 5 3 2 4v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-3-1-7 0-10 3Z"/></svg>Game rules</summary><div id="rules" class="rulebody"></div></details><div class="foot"><span>Head Crack · V0.8.2 · Free play</span><button id="reset" class="reset">Return to lobby</button></div></main>
 <script>
 const $=id=>document.getElementById(id),rand=()=>1+Math.floor(Math.random()*6),pick=a=>a[Math.floor(Math.random()*a.length)],safe=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");

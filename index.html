@@ -56,6 +56,9 @@
 @keyframes hc-vote-icon{0%{transform:scale(.94);opacity:.8}65%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
 @keyframes hc-vote-sheen{to{transform:translateX(110%)}}
 @media(prefers-reduced-motion:reduce){.choice,.choice.vote-enter,.choice.vote-enter svg,.choice.vote-enter:after{animation:none!important;transition:none!important;transform:none!important}}
+
+/* Urgent countdown retains the approved bloom; vote meters remain untouched. */
+.timer.urgent .track{overflow:visible}.timer.urgent .timefill{background:linear-gradient(90deg,#b95761,#ff9a9a);border-radius:inherit;box-shadow:0 0 4px #ff8585a6,0 0 10px #ff85857c,0 0 19px #ff858542}.decision.poison .result-timer.urgent .track{overflow:visible}.decision.poison .result-timer.urgent .timefill{background:linear-gradient(90deg,#b95761,#ff9a9a);box-shadow:0 0 4px #ff8585a6,0 0 10px #ff85857c,0 0 19px #ff858542}
 </style></head><body><main class="app"><div class="header"><div><div class="brand">HEAD CRACK</div><div class="ticker">$HCRAC</div></div><span class="tag" id="tag">LOBBY</span></div><div id="config"></div><div id="progress"></div><div class="panel" id="panel"></div><details><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 7v14M12 7C9 4 5 3 2 4v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-3-1-7 0-10 3Z"/></svg>Game rules</summary><div id="rules" class="rulebody"></div></details><div class="foot"><span>Head Crack · V0.8.2 · Free play</span><button id="reset" class="reset">Return to lobby</button></div></main>
 <script>
 const $=id=>document.getElementById(id),rand=()=>1+Math.floor(Math.random()*6),pick=a=>a[Math.floor(Math.random()*a.length)],safe=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");

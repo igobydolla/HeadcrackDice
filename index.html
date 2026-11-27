@@ -88,7 +88,7 @@
 .hcBrand .brand,.app.menu-mode .hcBrand .brand{min-width:0;width:100%;display:flex;align-items:center;background:none;animation:none;filter:none;line-height:1}
 .hc-brand-wordmark{display:block;width:100%;max-width:190px;height:auto;mix-blend-mode:screen}
 .hc-brand-mark{display:block;width:100%;height:auto;mix-blend-mode:screen}
-.hcHero{mix-blend-mode:screen}.hcHero .hc-brand-mark{mix-blend-mode:normal}
+.hcHero{mix-blend-mode:normal;background:transparent}.hcHero .hc-brand-mark{mix-blend-mode:normal;visibility:hidden;background:transparent}.hcHero .hc-brand-mark.hc-alpha-ready{visibility:visible}
 .hcBrand .ticker{margin-top:4px}
 .hcHero{width:128px}
 .hcCoin,.hcCurrencyHero .hcCoin,.menu-symbol.coin .hcCoin,.hc-market-heading .hcCoin{padding:0;border:0;box-shadow:none;background:none;overflow:hidden;border-radius:50%}
@@ -181,7 +181,8 @@ let hcCode='',hcIndex=0,hcState=null,hcPoll=0,hcBusy=false,hcAnimation=false,hcV
 async function hcRequest(a,v=0,n='',c=hcCode){const res=await fetch(hcURL,{method:'POST',headers:{apikey:hcKey,'Content-Type':'application/json'},body:JSON.stringify({a,c,t:hcToken,n,v})});const data=await res.json();if(!res.ok)throw Error(data.message||'Connection failed');return data}
 function hcStop(){epoch++;clearTimer();hcDeadlineKey='';names.splice(0,names.length,...hcSavedNames);menuReset.onclick=()=>mainMenu();clearInterval(hcPoll);hcPoll=0;hcCode='';hcState=null;hcAnimation=false;hcView++}
 const oldMenu=mainMenu,practiceLobby=openLobby;
-mainMenu=function(){hcStop();oldMenu();const d=document.querySelector('.menu-dice');if(d)d.innerHTML='<div class="hcHero">'+hcMark()+'</div>';const c=$('menuCurrency');if(c)c.querySelector('.menu-symbol').innerHTML=hcCoin();menuReset.textContent='Head Crack · V1.0.2 beta'};
+mainMenu=function(){hcStop();oldMenu();const d=document.querySelector('.menu-dice');if(d){d.innerHTML='<div class="hcHero">'+hcMark()+'</div>';hcTransparentHero(d.querySelector('.hc-brand-mark'))}const c=$('menuCurrency');if(c)c.querySelector('.menu-symbol').innerHTML=hcCoin();menuReset.textContent='Head Crack · V1.0.2 beta'};
+function hcTransparentHero(img){if(!img)return;function convert(){if(!img.naturalWidth||img.dataset.alphaReady)return;try{const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);const data=ctx.getImageData(0,0,c.width,c.height),p=data.data;for(let i=0;i<p.length;i+=4){const l=Math.max(p[i],p[i+1],p[i+2]);const a=Math.max(0,Math.min(255,Math.round((l-18)*255/237)));if(a===0){p[i]=p[i+1]=p[i+2]=p[i+3]=0;continue}p[i]=Math.min(255,Math.round(p[i]*255/l));p[i+1]=Math.min(255,Math.round(p[i+1]*255/l));p[i+2]=Math.min(255,Math.round(p[i+2]*255/l));p[i+3]=Math.round(p[i+3]*a/255)}ctx.putImageData(data,0,0);img.dataset.alphaReady='true';img.src=c.toDataURL('image/png');img.classList.add('hc-alpha-ready')}catch(e){img.classList.add('hc-alpha-ready')}}if(img.complete&&img.naturalWidth)convert();else img.addEventListener('load',convert,{once:true})}
 function hcMark(){return '<img class="hc-brand-mark" src="/assets/brand/mark.webp" width="180" height="130" alt="Head Crack" draggable="false">'}
 function hcCoin(){return '<span class="hcCoin"><img class="hc-brand-coin" src="/assets/brand/coin.webp" width="200" height="200" alt="$HCRAC coin" draggable="false"></span>'}
 const hcPlus='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16M4 12h16"/></svg>',hcUsers='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="7" r="3"/><path d="M2 20v-3a7 7 0 0 1 14 0v3M16 4a3 3 0 0 1 0 6M18 13a5 5 0 0 1 4 5v2"/></svg>';
